@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "ccca_ecommerce"
+version = "0.1.0"
+description = ""
+authors = ["Rogerio Paulo <rogeriopaulos@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.1"
+flake8 = "^4.0.1"
+autopep8 = "^1.6.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
