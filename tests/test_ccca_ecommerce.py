@@ -2,7 +2,7 @@ from ccca_ecommerce.core import Compra, Comprador, Pedido
 
 
 def test_pedido_com_cpf_invalido_entao_compra_nao_finalizada():
-    comprador = Comprador(nome="João Pereira", cpf="11122233344")
+    comprador = Comprador(nome="João Pereira", cpf="111.222.333-44")
     pedido = Pedido(descricao="maçã", preco=1.99, quantidade=7)
     compra = Compra(comprador)
     compra.adicionar_pedido(pedido)
@@ -10,7 +10,7 @@ def test_pedido_com_cpf_invalido_entao_compra_nao_finalizada():
 
 
 def test_pedido_com_cpf_valido_entao_compra_finalizada():
-    comprador = Comprador(nome="Rogério Paulo", cpf="00799773328")
+    comprador = Comprador(nome="Rogério Paulo", cpf="007.997.733-28")
     pedido = Pedido(descricao="banana", preco=0.99, quantidade=10)
     compra = Compra(comprador)
     compra.adicionar_pedido(pedido)
@@ -18,7 +18,7 @@ def test_pedido_com_cpf_valido_entao_compra_finalizada():
 
 
 def test_pedido_com_3_itens():
-    comprador = Comprador(nome="Rogério Paulo", cpf="00799773328")
+    comprador = Comprador(nome="Rogério Paulo", cpf="007.997.733-28")
     pedido1 = Pedido(descricao="banana", preco=0.99, quantidade=10)
     pedido2 = Pedido(descricao="macã", preco=2.50, quantidade=7)
     pedido3 = Pedido(descricao="melancia", preco=7.99, quantidade=2)
@@ -32,7 +32,7 @@ def test_pedido_com_3_itens():
 
 def test_pedido_com_cupom_de_desconto():
     valor_do_cupom_de_desconto = 10
-    comprador = Comprador(nome="Rogério Paulo", cpf="00799773328")
+    comprador = Comprador(nome="Rogério Paulo", cpf="007.997.733-28")
     pedido1 = Pedido(descricao="banana", preco=0.99, quantidade=10)
     pedido2 = Pedido(descricao="macã", preco=2.50, quantidade=7)
     pedido3 = Pedido(descricao="melancia", preco=7.99, quantidade=2)
