@@ -22,38 +22,38 @@ class Comprador:
     def is_valid_cpf(self):
         if self.cpf is None:
             return False
-        cpf = re.sub(r"[^\d]+", "", self.cpf)
-        if len(self.cpf) != 11:
+        cpf = self.clean_cpf()
+        if self.is_valid_len(cpf):
             return False
-        digits_list = [digit for digit in cpf]
-        first_digit = digits_list[0]
-        if not len([digit for digit in digits_list if digit == first_digit]) == len(digits_list):
-            try:
-                d1 = 0
-                d2 = 0
-                dg1 = 0
-                dg2 = 0
-                rest = 0
-                digito = None
-                nDigResult = None
-                for nCount in range(len(cpf)):
-                    nCount += 1
-                    digito = int(cpf[nCount -1:nCount])
-                    d1 = d1 + (11 - nCount) * digito
-                    d2 = d2 + (12 - nCount) * digito
-                rest = d1 % 11
-                dg1 = 0 if rest < 2 else 11 - rest
-                d2 += 2 * dg1
-                rest = d2 % 11
-                if rest < 2:
-                    dg2 = 0
-                else:
-                    dg2 = 11 - rest
-                nDigVerific = cpf[len(cpf)-2:len(cpf)]
-                nDigResult = f"{dg1}{dg2}"
-                return nDigVerific == nDigResult
-            except:
-                return False
+        if self.is_identical_digits(cpf):
+            return False
+        dg1 = self.calculate_check_digits(cpf, 10)
+        dg2 = self.calculate_check_digits(cpf, 11)
+        check_digit = self.extract_check_digits(cpf)
+        calculated_check_digit = f"{dg1}{dg2}"
+        return check_digit == calculated_check_digit
+
+    def clean_cpf(self):
+        return re.sub(r"[^\d]+", "", self.cpf)
+
+    def is_valid_len(self, clean_cpf):
+        return len(clean_cpf) != 11
+
+    def is_identical_digits(self, clean_cpf):
+        first_digit = clean_cpf[0:1]
+        return all([first_digit == item for item in clean_cpf])
+
+    def calculate_check_digits(self, clean_cpf, factor):
+        total = 0
+        for digit in clean_cpf:
+            if factor > 1:
+                factor -= 1
+                total += int(digit) * factor
+        rest = total % 11
+        return 0 if rest < 2 else 11 - rest
+
+    def extract_check_digits(self, clean_cpf):
+        return clean_cpf[-2:]
 
 
 class Compra:
