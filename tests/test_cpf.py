@@ -1,24 +1,24 @@
 import pytest
 
-from ccca_ecommerce.core import Comprador
+from ccca_ecommerce.validators import CPFValidator
 
 
 def test_deve_validar_um_cpf_valido():
-    comprador = Comprador(nome="Fulano de Tal", cpf="007.997.733-28")
-    assert comprador.is_valid_cpf()
+    cpf_validator = CPFValidator(raw_cpf="962.844.320-89")
+    assert cpf_validator.is_valid_cpf()
 
 
 @pytest.mark.parametrize('cpf', ['111.111.111-11', '222.222.222-22', '333.333.333-33'])
 def test_deve_validar_um_cpf_invalido_com_todos_os_numeros_iguais(cpf):
-    comprador = Comprador(nome="Fulano de Tal", cpf=cpf)
-    assert not comprador.is_valid_cpf()
+    cpf_validator = CPFValidator(raw_cpf=cpf)
+    assert not cpf_validator.is_valid_cpf()
 
 
 def test_deve_validar_um_cpf_invalido_que_seja_nulo():
-    comprador = Comprador(nome="Fulano de Tal", cpf=None)
-    assert not comprador.is_valid_cpf()
+    cpf_validator = CPFValidator()
+    assert not cpf_validator.is_valid_cpf()
 
 
 def test_deve_validar_um_cpf_valido_sem_pontos_e_tracos():
-    comprador = Comprador(nome="Fulano de Tal", cpf="96284432089")
-    assert comprador.is_valid_cpf()
+    cpf_validator = CPFValidator(raw_cpf="96284432089")
+    assert cpf_validator.is_valid_cpf()
