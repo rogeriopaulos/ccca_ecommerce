@@ -20,7 +20,7 @@ class Comprador:
         self.raw_cpf = cpf
 
     def comprador_cpf_is_valid(self) -> bool:
-        cpf = CPFValidator(self.cpf)
+        cpf = CPFValidator(self.raw_cpf)
         return cpf.is_valid_cpf()
 
 
