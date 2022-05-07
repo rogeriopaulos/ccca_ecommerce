@@ -37,3 +37,14 @@ def test_nao_deve_aplicar_cupom_de_desconto_expirado():
         pedido.adicionar_item(Item(id=1, descricao="Guitarra", preco=1000), 1)
         pedido.adicionar_cupom(Cupom(codigo="VALE20", percentual=20, expiracao="01/01/2000"))
         pedido.calcular_total()
+
+
+def test_pedido_deve_calcular_frete_de_acordo_com_as_dimensoes_e_peso_do_produto(self):
+    pedido = Pedido(cpf="007.997.733-28")
+    pedido.adicionar_item(Item(id=1, descricao="Guitarra", preco=1000), 1)
+    # total = pedido.calcular_total()
+
+
+def test_pedido_com_valor_minimo_de_frete(self):
+    pedido = Pedido(cpf="007.997.733-28")
+    pedido.adicionar_item(Item(id=1, descricao="Guitarra", preco=1000), 1)
