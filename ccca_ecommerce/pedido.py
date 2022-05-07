@@ -1,7 +1,7 @@
-from ccca_ecommerce.validators import CPFValidator
+from ccca_ecommerce.cupom import Cupom
 from ccca_ecommerce.item import Item
 from ccca_ecommerce.pedidoitem import PedidoItem
-from ccca_ecommerce.cupom import Cupom
+from ccca_ecommerce.validators import CPFValidator
 
 
 class Pedido:
