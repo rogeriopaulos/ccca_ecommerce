@@ -20,5 +20,5 @@ class Pedido:
     def calcular_total(self):
         total = sum([item.calcular_total() for item in self.pedidos])
         if self.cupom:
-            total -= (total * self.cupom.percentual) / 100
+            total = self.cupom.aplicar_cupom(total)
         return total

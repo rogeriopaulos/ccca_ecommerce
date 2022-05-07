@@ -1,3 +1,4 @@
+import datetime
 import pytest
 
 from ccca_ecommerce.pedido import Pedido
@@ -24,6 +25,15 @@ def test_deve_criar_pedido_com_cupom_de_desconto():
     pedido.adicionar_item(Item(id=1, descricao="Guitarra", preco=1000), 1)
     pedido.adicionar_item(Item(id=2, descricao="Amplificador", preco=5000), 1)
     pedido.adicionar_item(Item(id=3, descricao="Cabo", preco=30), 3)
-    pedido.adicionar_cupom(Cupom(codigo="VALE20", percentual=20))
+    today = datetime.datetime.now().strftime("%d/%m/%Y")
+    pedido.adicionar_cupom(Cupom(codigo="VALE20", percentual=20, expiracao=today))
     total = pedido.calcular_total()
     assert total == 4872
+
+
+def test_nao_deve_aplicar_cupom_de_desconto_expirado():
+    with pytest.raises(ValueError, match="Cupom expirado"):
+        pedido = Pedido(cpf="007.997.733-28")
+        pedido.adicionar_item(Item(id=1, descricao="Guitarra", preco=1000), 1)
+        pedido.adicionar_cupom(Cupom(codigo="VALE20", percentual=20, expiracao="01/01/2000"))
+        pedido.calcular_total()
