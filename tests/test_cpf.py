@@ -1,6 +1,6 @@
 import pytest
 
-from ccca_ecommerce.validators import CPFValidator
+from src.validators import CPFValidator
 
 
 def test_deve_validar_um_cpf_valido():

@@ -1,9 +1,8 @@
-import datetime
 import pytest
 
-from ccca_ecommerce.pedido import Pedido
-from ccca_ecommerce.item import Item
-from ccca_ecommerce.cupom import Cupom
+from src.pedido import Pedido
+from src.item import Item
+from src.cupom import Cupom
 
 
 def test_nao_deve_criar_pedido_com_cpf_invalido():
@@ -21,12 +20,11 @@ def test_deve_criar_pedido_com_3_itens():
 
 
 def test_deve_criar_pedido_com_cupom_de_desconto():
-    pedido = Pedido(cpf="007.997.733-28")
+    pedido = Pedido(cpf="007.997.733-28", date="08/05/2022")
     pedido.adicionar_item(Item(id=1, descricao="Guitarra", preco=1000), 1)
     pedido.adicionar_item(Item(id=2, descricao="Amplificador", preco=5000), 1)
     pedido.adicionar_item(Item(id=3, descricao="Cabo", preco=30), 3)
-    today = datetime.datetime.now().strftime("%d/%m/%Y")
-    pedido.adicionar_cupom(Cupom(codigo="VALE20", percentual=20, expiracao=today))
+    pedido.adicionar_cupom(Cupom(codigo="VALE20", percentual=20, expiracao="08/05/2022"))
     total = pedido.calcular_total()
     assert total == 4872
 
@@ -39,12 +37,46 @@ def test_nao_deve_aplicar_cupom_de_desconto_expirado():
         pedido.calcular_total()
 
 
-def test_pedido_deve_calcular_frete_de_acordo_com_as_dimensoes_e_peso_do_produto(self):
+def test_deve_criar_pedido_com_3_itens_e_calcular_o_frete(self):
     pedido = Pedido(cpf="007.997.733-28")
-    pedido.adicionar_item(Item(id=1, descricao="Guitarra", preco=1000), 1)
+    pedido.adicionar_item(
+        Item(
+            id=1,
+            descricao="Guitarra",
+            preco=1000,
+            altura=100,
+            largura=30,
+            profundidade=10,
+            peso=3
+        ), 1
+    )
+    pedido.adicionar_item(
+        Item(
+            id=2,
+            descricao="Amplificador",
+            preco=5000,
+            altura=50,
+            largura=50,
+            profundidade=50,
+            peso=20
+        ), 1
+    )
+    pedido.adicionar_item(
+        Item(
+            id=3,
+            descricao="Cabo",
+            preco=30,
+            altura=10,
+            largura=10,
+            profundidade=10,
+            peso=1
+        ), 3
+    )
+    frete = pedido.calcular_frete()
     # total = pedido.calcular_total()
+    assert frete == 260
 
 
-def test_pedido_com_valor_minimo_de_frete(self):
-    pedido = Pedido(cpf="007.997.733-28")
-    pedido.adicionar_item(Item(id=1, descricao="Guitarra", preco=1000), 1)
+# def test_pedido_com_valor_minimo_de_frete(self):
+#     pedido = Pedido(cpf="007.997.733-28")
+#     pedido.adicionar_item(Item(id=1, descricao="Guitarra", preco=1000), 1)
