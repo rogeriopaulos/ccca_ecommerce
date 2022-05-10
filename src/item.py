@@ -3,7 +3,7 @@ from src.dimensao import Dimensao
 
 class Item:
 
-    def __init__(self, id: str, descricao: str, preco: float, dimensao: Dimensao = None, peso: float = None):
+    def __init__(self, id: int, descricao: str, preco: float, dimensao: Dimensao = None, peso: float = None):
         self.id = id
         self.descricao = descricao
         self.preco = preco
