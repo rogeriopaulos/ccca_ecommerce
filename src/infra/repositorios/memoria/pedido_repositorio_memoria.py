@@ -9,3 +9,6 @@ class PedidoRepositorioMemoria(PedidoRepositorio):
 
     async def save(self, pedido: Pedido):
         self.pedidos.append(pedido)
+
+    async def contagem(self):
+        return len(self.pedidos)

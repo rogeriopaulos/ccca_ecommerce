@@ -7,3 +7,7 @@ class PedidoRepositorio(ABC):
     @abstractmethod
     async def save(self, pedido: Pedido):
         ...
+
+    @abstractmethod
+    async def contagem(self) -> int:
+        ...
