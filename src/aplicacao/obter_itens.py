@@ -1,4 +1,4 @@
-from src.item_repositorio import ItemRepositorio
+from src.dominio.repositorio.item_repositorio import ItemRepositorio
 
 
 class ObterItens:

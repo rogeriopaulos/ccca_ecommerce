@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from src.pedido import Pedido
+from src.dominio.entidade.pedido import Pedido
 
 
 class PedidoRepositorio(ABC):

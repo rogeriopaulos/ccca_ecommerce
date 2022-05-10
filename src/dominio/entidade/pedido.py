@@ -1,10 +1,10 @@
 import datetime
 
-from src.cupom import Cupom
-from src.frete import Frete
-from src.item import Item
-from src.pedidoitem import PedidoItem
-from src.validators import CPFValidator
+from src.dominio.entidade.cupom import Cupom
+from src.dominio.entidade.frete import Frete
+from src.dominio.entidade.item import Item
+from src.dominio.entidade.pedidoitem import PedidoItem
+from src.dominio.entidade.validators import CPFValidator
 
 
 class Pedido:

@@ -1,9 +1,9 @@
 import pytest
 
-from src.dimensao import Dimensao
-from src.pedido import Pedido
-from src.item import Item
-from src.cupom import Cupom
+from src.dominio.entidade.dimensao import Dimensao
+from src.dominio.entidade.pedido import Pedido
+from src.dominio.entidade.item import Item
+from src.dominio.entidade.cupom import Cupom
 
 
 def test_nao_deve_criar_pedido_com_cpf_invalido():

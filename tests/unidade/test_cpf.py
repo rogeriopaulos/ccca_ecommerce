@@ -1,6 +1,6 @@
 import pytest
 
-from src.validators import CPFValidator
+from src.dominio.entidade.validators import CPFValidator
 
 
 def test_deve_validar_um_cpf_valido():

@@ -1,4 +1,4 @@
-from src.item import Item
+from src.dominio.entidade.item import Item
 
 
 class Frete:

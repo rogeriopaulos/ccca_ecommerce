@@ -1,5 +1,5 @@
-from src.pedido import Pedido
-from src.pedido_repositorio import PedidoRepositorio
+from src.dominio.entidade.pedido import Pedido
+from src.dominio.repositorio.pedido_repositorio import PedidoRepositorio
 
 
 class PedidoRepositorioMemoria(PedidoRepositorio):

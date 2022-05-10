@@ -1,5 +1,5 @@
-from src.item_repositorio import ItemRepositorio
-from src.item import Item
+from src.dominio.entidade.item import Item
+from src.dominio.repositorio.item_repositorio import ItemRepositorio
 
 
 class ItemRepositorioMemoria(ItemRepositorio):

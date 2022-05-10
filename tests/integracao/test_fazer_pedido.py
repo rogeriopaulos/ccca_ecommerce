@@ -1,10 +1,9 @@
 import pytest
-
-from src.item import Item
-from src.dimensao import Dimensao
-from src.fazer_pedido import FazerPedido
-from src.item_repositorio_memoria import ItemRepositorioMemoria
-from src.pedido_repositorio_memoria import PedidoRepositorioMemoria
+from src.aplicacao.fazer_pedido import FazerPedido
+from src.dominio.entidade.dimensao import Dimensao
+from src.dominio.entidade.item import Item
+from src.infra.repositorios.memoria.item_repositorio_memoria import ItemRepositorioMemoria
+from src.infra.repositorios.memoria.pedido_repositorio_memoria import PedidoRepositorioMemoria
 
 
 @pytest.mark.asyncio

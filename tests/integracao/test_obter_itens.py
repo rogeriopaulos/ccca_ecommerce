@@ -1,8 +1,9 @@
 import pytest
-from src.item_repositorio_memoria import ItemRepositorioMemoria
-from src.item import Item
-from src.dimensao import Dimensao
-from src.obter_itens import ObterItens
+from src.aplicacao.obter_itens import ObterItens
+from src.dominio.entidade.dimensao import Dimensao
+from src.dominio.entidade.item import Item
+from src.infra.repositorios.memoria.item_repositorio_memoria import \
+    ItemRepositorioMemoria
 
 
 @pytest.mark.asyncio

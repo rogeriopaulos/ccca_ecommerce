@@ -1,6 +1,6 @@
-from src.pedido import Pedido
-from src.item_repositorio import ItemRepositorio
-from src.pedido_repositorio import PedidoRepositorio
+from src.dominio.entidade.pedido import Pedido
+from src.dominio.repositorio.item_repositorio import ItemRepositorio
+from src.dominio.repositorio.pedido_repositorio import PedidoRepositorio
 
 
 class FazerPedido:

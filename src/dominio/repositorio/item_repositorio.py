@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from src.item import Item
+from src.dominio.entidade.item import Item
 
 
 class ItemRepositorio(ABC):

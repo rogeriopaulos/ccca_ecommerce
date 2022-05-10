@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from src.http_api import Http
+from src.infra.http.http_api import Http
 
 
 class FastApiAdapter(Http):
@@ -8,8 +8,8 @@ class FastApiAdapter(Http):
     def __init__(self):
         self.app = FastAPI()
 
-    def on(self, method, url, callback):
+    def on(self, method: str, url: str, callback):
         ...
 
-    def listen(self, port):
+    def listen(self, port: int):
         ...

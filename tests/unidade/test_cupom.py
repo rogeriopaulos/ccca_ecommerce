@@ -1,6 +1,6 @@
 import pytest
 
-from src.cupom import Cupom
+from src.dominio.entidade.cupom import Cupom
 
 
 def test_aplicar_desconto():

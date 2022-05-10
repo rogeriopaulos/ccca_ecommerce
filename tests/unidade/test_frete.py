@@ -1,6 +1,6 @@
-from src.dimensao import Dimensao
-from src.frete import Frete
-from src.item import Item
+from src.dominio.entidade.dimensao import Dimensao
+from src.dominio.entidade.frete import Frete
+from src.dominio.entidade.item import Item
 
 
 def test_deve_calcular_o_frete():

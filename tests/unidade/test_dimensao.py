@@ -1,4 +1,4 @@
-from src.dimensao import Dimensao
+from src.dominio.entidade.dimensao import Dimensao
 
 
 def test_deve_criar_as_dimensoes():
