@@ -17,7 +17,4 @@ class Cupom:
         return today <= data_expiracao
 
     def aplicar_desconto(self, total, today):
-        if self.cupom_nao_expirado(today):
-            return total - ((total * self.percentual) / 100)
-        else:
-            raise ValueError("Cupom expirado")
+        return total - ((total * self.percentual) / 100)
