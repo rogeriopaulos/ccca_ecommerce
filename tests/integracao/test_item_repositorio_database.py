@@ -4,7 +4,7 @@ from src.infra.repositorios.database.item_repositorio_database import \
     ItemRepositorioDatabase
 
 
-@pytest.mark.skip(reason="BD não foi alimentado")
+@pytest.mark.asyncio
 async def test_deve_retornar_itens_do_bd():
     conn = PgConexaoAdapter()
     item_repo_db = ItemRepositorioDatabase(conn)

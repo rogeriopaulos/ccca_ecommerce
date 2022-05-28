@@ -17,6 +17,9 @@ class PgConexaoAdapter(Conexao):
     async def query(self, statement: str, params=None):
         cur = self.conn.cursor()
         cur.execute(statement)
-        result = cur.fetchall()
+        try:
+            result = cur.fetchall()
+        except psycopg2.ProgrammingError:
+            result = None
         cur.close()
         return result

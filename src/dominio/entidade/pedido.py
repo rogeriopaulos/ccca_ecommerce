@@ -17,8 +17,9 @@ class Pedido:
 
         self.cupom: Cupom = None
         self.data = data
+        self.sequencia = sequencia
         self.frete = Frete()
-        self.codigo_do_pedido: CodigoDoPedido = CodigoDoPedido(self.data, sequencia)
+        self.codigo_do_pedido: CodigoDoPedido = CodigoDoPedido(self.data, self.sequencia)
 
     def adicionar_item(self, item: Item, quantidade: float):
         self.frete.adicionar_item(item, quantidade)
