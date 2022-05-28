@@ -10,7 +10,6 @@ async def test_deve_validar_um_cupom_de_desconto_expirado():
     cupom_repo = CupomRepositorioMemoria()
     await cupom_repo.save(Cupom("VALE20", 20, "10/04/2022"))
     validador_de_cupom = ValidadorDeCupom(cupom_repo)
-
     input = {
         "codigo": "VALE20",
         "data": "10/05/2022"
@@ -24,7 +23,6 @@ async def test_deve_validar_um_cupom_de_desconto_valido():
     cupom_repo = CupomRepositorioMemoria()
     await cupom_repo.save(Cupom("VALE20", 20, "10/06/2021"))
     validador_de_cupom = ValidadorDeCupom(cupom_repo)
-
     input = {
         "codigo": "VALE20",
         "data": "10/05/2021"
