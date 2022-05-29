@@ -1,3 +1,4 @@
+from src.dominio.entidade.pedido import Pedido
 from src.dominio.repositorio.pedido_repositorio import PedidoRepositorio
 from src.infra.database.conexao import Conexao
 
@@ -25,3 +26,16 @@ class PedidoRepositorioDatabase(PedidoRepositorio):
     async def contagem(self):
         row = await self.conexao.query("SELECT count(*)::int FROM ccca.order")
         return len(row)
+
+    async def all(self):
+        pedidos_fromdb = await self.conexao.query("SELECT code FROM ccca.order")
+        pedidos = [self.get(pedido.code) for pedido in pedidos_fromdb]
+        return pedidos
+
+    async def get(self, codigo_do_pedido):
+        pedido_fromdb = await self.conexao.query(f"SELECT * FROM ccca.order WHERE code = {codigo_do_pedido}")
+        return Pedido(pedido_fromdb.cpf, pedido_fromdb.issue_date, pedido_fromdb.sequence)
+
+    async def clear(self):
+        await self.conexao.query("DELETE * FROM ccca.order_item")
+        await self.conexao.query("DELETE * FROM ccca.order")

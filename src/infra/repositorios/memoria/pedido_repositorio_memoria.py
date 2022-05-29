@@ -12,3 +12,12 @@ class PedidoRepositorioMemoria(PedidoRepositorio):
 
     async def contagem(self):
         return len(self.pedidos)
+
+    async def all(self):
+        return self.pedidos
+
+    async def get(self, codigo_do_pedido):
+        ...
+
+    async def clear(self):
+        return await super().clear()
