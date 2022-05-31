@@ -10,7 +10,7 @@ class ObterPedidos:
         pedidos = await self.pedido_repositorio.all()
         return [
             {
-                "codigo_do_pedido": pedido.codigo_do_pedido,
+                "codigo_do_pedido": pedido.codigo_do_pedido.valor,
                 "total": pedido.calcular_total(),
             }
             for pedido in pedidos

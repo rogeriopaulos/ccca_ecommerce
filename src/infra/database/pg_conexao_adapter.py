@@ -21,7 +21,8 @@ class PgConexaoAdapter(Conexao):
             result = cur.fetchall()
         except psycopg2.ProgrammingError:
             result = None
+        cur.close()
         return result
 
-    def close(self):
+    async def close(self):
         self.conn.close()
