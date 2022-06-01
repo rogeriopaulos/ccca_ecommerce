@@ -33,8 +33,7 @@ async def test_deve_obter_uma_lista_vazia_de_pedidos(pedido_repo_db):
     assert len(output) == 0
 
 
-@pytest.mark.skip(reason="Sintaxe no BD incorreta")
-# @pytest.mark.asyncio
+@pytest.mark.asyncio
 async def test_deve_obter_os_pedidos_cadastrados(pedido_repo_db):
     item_repo = ItemRepositorioMemoria()
     await item_repo.save(Item(1, "Guitarra", 1000, Dimensao(100, 30, 10), 3))
