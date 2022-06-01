@@ -1,3 +1,5 @@
+from src.dominio.entidade.dimensao import Dimensao
+from src.dominio.entidade.item import Item
 from src.dominio.entidade.pedido import Pedido
 from src.dominio.repositorio.pedido_repositorio import PedidoRepositorio
 from src.infra.database.conexao import Conexao
@@ -37,10 +39,24 @@ class PedidoRepositorioDatabase(PedidoRepositorio):
 
     async def get(self, codigo_do_pedido):
         pedido_fromdb = await self.conexao.query(
-            f"SELECT cpf, issue_date, sequence FROM ccca.order WHERE code = '{codigo_do_pedido}'"
+            f"SELECT cpf, issue_date, sequence, id_order FROM ccca.order WHERE code = '{codigo_do_pedido}'"
         )
         data = pedido_fromdb[0][1].strftime("%d/%m/%Y")
-        return Pedido(cpf=pedido_fromdb[0][0], data=data, sequencia=pedido_fromdb[0][2])
+        pedido = Pedido(cpf=pedido_fromdb[0][0], data=data, sequencia=pedido_fromdb[0][2])
+        itens_do_pedido_fromdb = await self.conexao.query(
+            f"SELECT * FROM ccca.order_item WHERE id_order = {pedido_fromdb[0][3]}"
+        )
+        for item_do_pedido in itens_do_pedido_fromdb:
+            item = await self.conexao.query(f"SELECT * FROM ccca.item WHERE id_item = {item_do_pedido[1]}")
+            item_obj = Item(
+                id=item[0][0],
+                descricao=item[0][2],
+                preco=float(item[0][3]),
+                dimensao=Dimensao(altura=float(item[0][5]), largura=float(item[0][4]), profundidade=float(item[0][6])),
+                peso=item[0][7]
+            )
+            pedido.adicionar_item(item_obj, item_do_pedido[3])
+        return pedido
 
     async def clear(self):
         await self.conexao.query('DELETE FROM ccca.order_item')

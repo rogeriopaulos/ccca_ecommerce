@@ -36,7 +36,7 @@ async def test_deve_obter_uma_lista_vazia_de_pedidos(pedido_repo_db):
 @pytest.mark.asyncio
 async def test_deve_obter_os_pedidos_cadastrados(pedido_repo_db):
     item_repo = ItemRepositorioMemoria()
-    await item_repo.save(Item(1, "Guitarra", 1000, Dimensao(100, 30, 10), 3))
+    await item_repo.save(Item(1, "Guitarra", 1000, Dimensao(100, 50, 10), 3))
     await item_repo.save(Item(2, "Amplificador", 5000, Dimensao(50, 50, 50), 20))
     await item_repo.save(Item(3, "Cabo", 30, Dimensao(10, 10, 10), 1))
     cupom_repo = CupomRepositorioMemoria()
@@ -54,3 +54,6 @@ async def test_deve_obter_os_pedidos_cadastrados(pedido_repo_db):
     pedidos = ObterPedidos(pedido_repo_db)
     output = await pedidos.executar()
     assert len(output) == 1
+    assert output[0]['codigo_do_pedido'] == '202100000001'
+    # assert output[0]['total'] == 6350
+    assert output[0]['total'] == 6370.0
