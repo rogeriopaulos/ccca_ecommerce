@@ -16,5 +16,5 @@ class Cupom:
             raise ValueError("Informe uma data no formato dd/mm/aaaa")
         return today <= data_expiracao
 
-    def aplicar_desconto(self, total, today):
-        return total - ((total * self.percentual) / 100)
+    def aplicar_desconto(self, total):
+        return float(total) - ((float(total) * float(self.percentual)) / 100.0)

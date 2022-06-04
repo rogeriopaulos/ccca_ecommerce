@@ -22,6 +22,7 @@ class PgConexaoAdapter(Conexao):
             result = cur.fetchall()
         except psycopg2.ProgrammingError:
             result = None
+        self.conn.commit()
         cur.close()
         return result
 

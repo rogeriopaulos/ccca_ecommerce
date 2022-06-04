@@ -19,8 +19,8 @@ class PedidoRepositorioDatabase(PedidoRepositorio):
         {pedido.frete.calcular_total()}, {pedido.sequencia}, {pedido.calcular_total()}"""
         codigo_do_cupom = pedido.cupom.codigo if pedido.cupom else None
         if codigo_do_cupom:
-            insert_into + ', coupon_code'
-            values_dados_do_pedido + f', {codigo_do_cupom}'
+            insert_into = insert_into + ', coupon_code, coupon_percentage'
+            values_dados_do_pedido = values_dados_do_pedido + f", '{codigo_do_cupom}', {pedido.cupom.percentual}"
         query = f"INSERT INTO ccca.order ({insert_into}) VALUES ({values_dados_do_pedido}) RETURNING *"
         dados_do_pedido = await self.conexao.query(query)
         for item in pedido.pedidos:
@@ -79,10 +79,10 @@ class PedidoRepositorioDatabase(PedidoRepositorio):
         #         peso=item.get('weight')
         #     )
         #     pedido.adicionar_item(item_obj, item_do_pedido.get('quantity'))
-        # cupom_fromdb = await self.conexao.query(
-        #     f"SELECT * FROM ccca.coupon WHERE code = {pedido_fromdb.get('coupon_code')}"
-        # )
         # if pedido_fromdb.get('coupon_code'):
+        #     cupom_fromdb = await self.conexao.query(
+        #         f"SELECT * FROM ccca.coupon WHERE code = '{pedido_fromdb.get('coupon_code')}'"
+        #     )
         #     cupom_fromdb = cupom_fromdb[0]
         #     cupom = Cupom(
         #         codigo=cupom_fromdb.get('code'),

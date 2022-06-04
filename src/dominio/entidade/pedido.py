@@ -37,6 +37,6 @@ class Pedido:
     def calcular_total(self) -> float:
         total = sum([item.calcular_total() for item in self.pedidos])
         if self.cupom:
-            total = self.cupom.aplicar_desconto(total, self.data)
+            total = self.cupom.aplicar_desconto(total)
         total += self.frete.calcular_total()
         return total

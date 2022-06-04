@@ -2,6 +2,7 @@ import pytest
 import pytest_asyncio
 from src.aplicacao.fazer_pedido import FazerPedido
 from src.aplicacao.obter_pedidos import ObterPedidos
+from src.dominio.entidade.cupom import Cupom
 from src.dominio.entidade.dimensao import Dimensao
 from src.dominio.entidade.item import Item
 from src.infra.database.pg_conexao_adapter import PgConexaoAdapter
@@ -40,6 +41,7 @@ async def test_deve_obter_os_pedidos_cadastrados(pedido_repo_db):
     await item_repo.save(Item(2, "Amplificador", 5000, Dimensao(50, 50, 50), 20))
     await item_repo.save(Item(3, "Cabo", 30, Dimensao(10, 10, 10), 1))
     cupom_repo = CupomRepositorioMemoria()
+    await cupom_repo.save(Cupom("VALE20", 20, "10/03/2021"))
     fazer_pedido = FazerPedido(item_repo, pedido_repo_db, cupom_repo)
     input = {
         "cpf": "007.997.733-28",
@@ -48,11 +50,12 @@ async def test_deve_obter_os_pedidos_cadastrados(pedido_repo_db):
             {"id": 2, "quantidade": 1},
             {"id": 3, "quantidade": 3},
         ],
-        "data": "10/05/2021"
+        "data": "01/03/2021",
+        "cupom": "VALE20"
     }
     await fazer_pedido.executar(input)
     pedidos = ObterPedidos(pedido_repo_db)
     output = await pedidos.executar()
     assert len(output) == 1
     assert output[0]['codigo_do_pedido'] == '202100000001'
-    assert output[0]['total'] == 6350
+    assert output[0]['total'] == 5132
