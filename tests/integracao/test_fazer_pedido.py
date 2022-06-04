@@ -1,4 +1,5 @@
 import pytest
+import pytest_asyncio
 from src.aplicacao.fazer_pedido import FazerPedido
 from src.dominio.entidade.cupom import Cupom
 from src.dominio.entidade.dimensao import Dimensao
@@ -15,8 +16,7 @@ def db_connection():
     return PgConexaoAdapter()
 
 
-@pytest.fixture
-@pytest.mark.asyncio
+@pytest_asyncio.fixture
 async def pedido_repo_db(db_connection):
     pedido_repo_db = PedidoRepositorioDatabase(db_connection)
     yield pedido_repo_db
