@@ -1,7 +1,7 @@
 import pytest
 import pytest_asyncio
 from src.aplicacao.fazer_pedido import FazerPedido
-from src.aplicacao.obter_pedidos import ObterPedidos
+from src.aplicacao.obter_pedido import ObterPedido
 from src.dominio.entidade.cupom import Cupom
 from src.dominio.entidade.dimensao import Dimensao
 from src.dominio.entidade.item import Item
@@ -28,14 +28,7 @@ async def pedido_repo_db(db_connection):
 
 
 @pytest.mark.asyncio
-async def test_deve_obter_uma_lista_vazia_de_pedidos(pedido_repo_db):
-    pedidos = ObterPedidos(pedido_repo_db)
-    output = await pedidos.executar()
-    assert len(output) == 0
-
-
-@pytest.mark.asyncio
-async def test_deve_obter_os_pedidos_cadastrados(pedido_repo_db):
+async def test_deve_obter_um_pedido_pelo_codigo(pedido_repo_db):
     item_repo = ItemRepositorioMemoria()
     await item_repo.save(Item(1, "Guitarra", 1000, Dimensao(100, 50, 10), 3))
     await item_repo.save(Item(2, "Amplificador", 5000, Dimensao(50, 50, 50), 20))
@@ -54,11 +47,7 @@ async def test_deve_obter_os_pedidos_cadastrados(pedido_repo_db):
         "cupom": "VALE20"
     }
     await fazer_pedido.executar(input)
-    await fazer_pedido.executar(input)
-    pedidos = ObterPedidos(pedido_repo_db)
-    output = await pedidos.executar()
-    assert len(output) == 2
-    assert output[0]['codigo_do_pedido'] == '202100000001'
-    assert output[0]['total'] == 5132
-    assert output[1]['codigo_do_pedido'] == '202100000002'
-    assert output[1]['total'] == 5132
+    pedido = ObterPedido(pedido_repo_db)
+    output = await pedido.executar('202100000001')
+    assert output.get('codigo_do_pedido') == '202100000001'
+    assert output.get('total') == 5132

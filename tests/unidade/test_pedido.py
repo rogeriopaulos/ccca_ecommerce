@@ -1,7 +1,7 @@
 import pytest
 
 from src.dominio.entidade.dimensao import Dimensao
-from src.dominio.entidade.pedido import Pedido
+from src.dominio.entidade.pedido import DuplicatedItemError, Pedido
 from src.dominio.entidade.item import Item
 from src.dominio.entidade.cupom import Cupom
 
@@ -76,3 +76,10 @@ def test_deve_criar_pedido_com_3_itens_e_calcular_o_frete():
 def test_deve_criar_pedido_e_gerar_um_codigo_no_padrao_AAAAPPPPPPPP():
     pedido = Pedido(cpf="007.997.733-28", data="10/05/2021")
     assert pedido.codigo_do_pedido.valor == "202100000001"
+
+
+def test_deve_lancar_uma_exception_se_o_item_for_adicionado_mais_de_uma_vez():
+    with pytest.raises(DuplicatedItemError, match="Item duplicado"):
+        pedido = Pedido(cpf="007.997.733-28")
+        pedido.adicionar_item(Item(id=1, descricao="Guitarra", preco=1000), 1)
+        pedido.adicionar_item(Item(id=1, descricao="Guitarra", preco=1000), 1)

@@ -8,6 +8,8 @@ class Item:
         self.descricao = descricao
         self.preco = preco
         self.dimensao = dimensao
+        if peso and peso < 0:
+            raise ValueError("Somente valores positivos são aceitos")
         self.peso = peso
 
     def calcular_volume(self):
