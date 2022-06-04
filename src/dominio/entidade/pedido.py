@@ -4,8 +4,8 @@ from src.dominio.entidade.codigo_do_pedido import CodigoDoPedido
 from src.dominio.entidade.cupom import Cupom
 from src.dominio.entidade.frete import Frete
 from src.dominio.entidade.item import Item
-from src.dominio.entidade.pedidoitem import PedidoItem
-from src.dominio.entidade.pedido_cupom import PedidoCupom
+from src.dominio.entidade.item_do_pedido import ItemDoPedido
+from src.dominio.entidade.cupom_do_pedido import CupomDoPedido
 from src.dominio.entidade.validators import CPFValidator
 
 
@@ -23,11 +23,11 @@ class Pedido:
 
     def adicionar_item(self, item: Item, quantidade: float):
         self.frete.adicionar_item(item, quantidade)
-        self.pedidos.append(PedidoItem(id_item=item.id, preco=item.preco, quantidade=quantidade))
+        self.pedidos.append(ItemDoPedido(id_item=item.id, preco=item.preco, quantidade=quantidade))
 
     def adicionar_cupom(self, cupom: Cupom):
         if cupom.cupom_nao_expirado(self.data):
-            self.cupom = PedidoCupom(cupom.codigo, cupom.percentual)
+            self.cupom = CupomDoPedido(cupom.codigo, cupom.percentual)
         else:
             raise ValueError("Cupom expirado")
 

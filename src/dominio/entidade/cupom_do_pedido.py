@@ -1,4 +1,4 @@
-class PedidoCupom:
+class CupomDoPedido:
 
     def __init__(self, codigo, percentual):
         self.codigo = codigo

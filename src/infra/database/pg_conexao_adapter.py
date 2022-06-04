@@ -1,4 +1,5 @@
 import psycopg2
+import psycopg2.extras
 
 from src.infra.database.conexao import Conexao
 
@@ -15,7 +16,7 @@ class PgConexaoAdapter(Conexao):
         )
 
     async def query(self, statement: str, params=None):
-        cur = self.conn.cursor()
+        cur = self.conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         cur.execute(statement)
         try:
             result = cur.fetchall()

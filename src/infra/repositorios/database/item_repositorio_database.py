@@ -17,5 +17,9 @@ class ItemRepositorioDatabase(ItemRepositorio):
     async def all(self):
         itens_data = await self.conexao.query("SELECT * FROM ccca.item")
         return [
-            Item(id=item[0], descricao=item[2], preco=float(item[3])) for item in itens_data
+            Item(
+                id=item.get('id_item'),
+                descricao=item.get('description'),
+                preco=float(item.get('price'))
+            ) for item in itens_data
         ]

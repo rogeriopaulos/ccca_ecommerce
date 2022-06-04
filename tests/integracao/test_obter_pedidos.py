@@ -55,5 +55,4 @@ async def test_deve_obter_os_pedidos_cadastrados(pedido_repo_db):
     output = await pedidos.executar()
     assert len(output) == 1
     assert output[0]['codigo_do_pedido'] == '202100000001'
-    # assert output[0]['total'] == 6350
-    assert output[0]['total'] == 6370.0
+    assert output[0]['total'] == 6350
